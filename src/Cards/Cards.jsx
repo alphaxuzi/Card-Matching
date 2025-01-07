@@ -1,6 +1,5 @@
-import "./FruitCard.css";
+import "./Cards.css";
 import { useState } from "react";
-import { fetchFruitData } from "../../utils/FruityVIceApi";
 import React from "react";
 
 function Cards({ onFruitSelect }) {
