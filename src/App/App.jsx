@@ -9,8 +9,6 @@ function App() {
     <>
       <Timer />
       <Gameboard />
-      {/* Cards */}
-      {/* Results */}
     </>
   );
 }

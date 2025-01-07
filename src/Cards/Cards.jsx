@@ -2,7 +2,7 @@ import "./Cards.css";
 import { useState } from "react";
 import React from "react";
 
-function Cards({ onFruitSelect }) {
+function Cards() {
   const [selectedFruits, setSelectedFruits] = useState({});
   const [flippedCard, setFlippedCard] = useState(null);
 
@@ -21,40 +21,13 @@ function Cards({ onFruitSelect }) {
     "Kiwi",
   ];
 
-  const handleCardClick = async (fruit) => {
-    if (flippedCard !== fruit) {
-      setFlippedCard(fruit);
-
-      if (!selectedFruits[fruit]) {
-        const data = await fetchFruitData(fruit);
-        setSelectedFruits((prev) => ({ ...prev, [fruit]: data }));
-        onFruitSelect(data);
-      }
-    } else {
-      setFlippedCard(null);
-      onFruitSelect(null);
-    }
-  };
-
   return (
-    <ul className="fruitcards">
-      {fruits.map((fruit) => (
+    <ul className="cards">
+      {cards.map((card) => (
         <li
-          key={fruit}
-          className={`fruitcard ${flippedCard === fruit ? "flipped" : ""}`}
-          onClick={() => handleCardClick(fruit)}
-        >
-          {flippedCard === fruit ? (
-            <div className="fruit-info">
-              <p>{selectedFruits[fruit]?.name || "Loading..."}</p>
-              <p>
-                Calories: {selectedFruits[fruit]?.nutritions?.calories || "N/A"}
-              </p>
-            </div>
-          ) : (
-            <span>{fruit}</span>
-          )}
-        </li>
+          key={card}
+          className={`card ${flippedCard === card ? "flipped" : ""}`}
+        ></li>
       ))}
     </ul>
   );
