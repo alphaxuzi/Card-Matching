@@ -11,6 +11,8 @@ node_modules
 dist
 dist-ssr
 *.local
+echo "node_modules/" >> .gitignore
+
 
 # Editor directories and files
 .vscode/*
