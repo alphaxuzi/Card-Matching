@@ -5,7 +5,7 @@ import Results from "../Results/Results";
 function Gameboard() {
   return (
     <div className="gameboard">
-      <p>This is the GameBoard</p>
+      <p>Find the pairs to win the game</p>
       <Cards />
       <Results />
     </div>
