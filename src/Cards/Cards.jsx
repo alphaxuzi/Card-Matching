@@ -3,11 +3,22 @@ import { useEffect, useState } from "react";
 
 function Cards() {
   const [flippedCards, setFlippedCards] = useState([]);
+  const [matchedCards, setMatchedCards] = useState([]); // Keep track of matched cards
   const [shuffledCards, setShuffledCards] = useState([]);
 
   const cards = [
-    "Cherry", "Grape", "Orange", "Pear", "Pineapple", "Kiwi",
-    "Cherry", "Grape", "Orange", "Pear", "Pineapple", "Kiwi"
+    "Cherry",
+    "Grape",
+    "Orange",
+    "Pear",
+    "Pineapple",
+    "Kiwi",
+    "Cherry",
+    "Grape",
+    "Orange",
+    "Pear",
+    "Pineapple",
+    "Kiwi",
   ];
 
   const shuffleArray = (array) => {
@@ -19,39 +30,35 @@ function Cards() {
     return newArray;
   };
 
-
   useEffect(() => {
-    setShuffledCards(shuffleArray(cards)); 
+    setShuffledCards(shuffleArray(cards));
   }, []);
 
   const handleCardClick = (index) => {
-    if (!flippedCards.includes(index) && flippedCards.length < 2) {
+    if (!flippedCards.includes(index) && flippedCards.length < 2 && !matchedCards.includes(index)) {
       setFlippedCards((prevFlippedCards) => [...prevFlippedCards, index]);
     }
   };
 
   useEffect(() => {
-    if (flippedCards.length === 2 ) {
+    if (flippedCards.length === 2) {
       const [firstIndex, secondIndex] = flippedCards;
       if (shuffledCards[firstIndex] === shuffledCards[secondIndex]) {
-        // Cards match, keep them flipped
-        setFlippedCards([]);
-      } else {
-        // Cards do not match, flip them back after a short delay
-        setTimeout(() => {
-          setFlippedCards([]);
-        }, 1000);
+        // Cards match, keep them flipped permanently
+        setMatchedCards((prevMatchedCards) => [...prevMatchedCards, firstIndex, secondIndex]);
       }
+      setTimeout(() => {
+        setFlippedCards([]); // Reset flipped cards after checking
+      }, 1000);
     }
   }, [flippedCards, shuffledCards]);
-  
 
   return (
     <ul className="cards">
       {shuffledCards.map((card, index) => (
         <li
           key={index}
-          className={`card ${flippedCards.includes(index) ? "flipped" : ""}`}
+          className={`card ${flippedCards.includes(index) || matchedCards.includes(index) ? "flipped" : ""}`}
           onClick={() => handleCardClick(index)}
         >
           <div className="front">?</div>
